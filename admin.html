@@ -1,0 +1,1295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="CampusEZ Admin - Executive Administrative Command Portal (India). Comprehensive campus governance, timetable control, SMS/WhatsApp broadcast, fee clearance, and IoT hardware telemetry.">
+  <title>CampusEZ Admin | Executive Command Portal (India)</title>
+
+  <!-- Google Fonts: Plus Jakarta Sans & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome 6 Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Chart.js for Campus Analytics -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Custom Stylesheet with Cache Buster -->
+  <link rel="stylesheet" href="style.css?v=4.1">
+</head>
+<body class="bright-campus-theme portal-active">
+  <!-- Soft Ambient Glows -->
+  <div class="ambient-glow glow-blue"></div>
+  <div class="ambient-glow glow-emerald"></div>
+  <div class="ambient-glow glow-amber"></div>
+
+  <!-- Top Announcement Bar for Admins -->
+  <div class="top-announcement-bar admin-top-bar">
+    <div class="ticker-badge"><i class="fa-solid fa-shield-halved"></i> CAMPUSEZ ADMIN:</div>
+    <div class="ticker-content">
+      <span>🔐 Executive Command Center &bull; Principal & HOD Office &bull; CampusEZ Main Campus, India &bull; Connected to Central Academic Server & Transit Telemetry.</span>
+    </div>
+    <div class="campus-location-tag">
+      <a href="index.html" class="switch-to-student-link" title="Return to Student Portal">
+        <i class="fa-solid fa-arrow-left"></i> Go to Student Portal
+      </a>
+    </div>
+  </div>
+
+  <!-- App Wrapper -->
+  <div class="campus-layout">
+    
+    <!-- Left Navigation Sidebar for Admin -->
+    <aside class="sidebar" id="admin-sidebar">
+      <div class="sidebar-header">
+        <div class="rims-logo-card">
+          <div class="rims-logo-icon">
+            <i class="fa-solid fa-building-shield"></i>
+          </div>
+          <div class="rims-logo-text">
+            <span class="rims-main-title">Campus<span style="color: #2563eb;">EZ</span> Admin</span>
+            <span class="rims-sub-title">Executive Command &bull; India</span>
+          </div>
+        </div>
+        <button class="sidebar-close-btn" id="admin-sidebar-close-btn" onclick="adminPortal.closeSidebar()" aria-label="Close admin navigation">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <!-- Dashboard Title -->
+      <div style="padding: 18px 22px 4px 22px; font-weight: 800; font-size: 16px; color: #1e293b; display: flex; align-items: center; gap: 10px; letter-spacing: -0.2px;">
+        <div style="background: #e0e7ff; color: #4338ca; width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 15px;">
+          <i class="fa-solid fa-shield-halved"></i>
+        </div>
+        Admin Dashboard
+      </div>
+
+      <!-- Admin Navigation Menu -->
+      <nav class="sidebar-nav">
+        <div class="nav-heading">ADMINISTRATIVE SECTIONS</div>
+        
+        <button class="nav-item active" data-section="admin-section-overview" onclick="adminPortal.showSection('admin-section-overview')">
+          <i class="fa-solid fa-chart-pie"></i>
+          <span>Executive Overview</span>
+        </button>
+
+        <button class="nav-item" data-section="admin-section-profile" onclick="adminPortal.showSection('admin-section-profile')">
+          <i class="fa-solid fa-id-card-clip"></i>
+          <span>Administrator Profile</span>
+        </button>
+
+        <button class="nav-item" data-section="admin-section-timetable" onclick="adminPortal.showSection('admin-section-timetable')">
+          <i class="fa-solid fa-calendar-days"></i>
+          <span>Timetable & Suspensions</span>
+        </button>
+
+        <button class="nav-item" data-section="admin-section-faculty" onclick="adminPortal.showSection('admin-section-faculty')">
+          <i class="fa-solid fa-chalkboard-user"></i>
+          <span>Faculty Desk Details</span>
+        </button>
+
+        <button class="nav-item" data-section="admin-section-faculty-attendance" onclick="adminPortal.showSection('admin-section-faculty-attendance')">
+          <i class="fa-solid fa-users-viewfinder"></i>
+          <span>Faculty 1-Click Attendance</span>
+        </button>
+
+        <button class="nav-item" data-section="admin-section-broadcast" onclick="adminPortal.showSection('admin-section-broadcast')">
+          <i class="fa-solid fa-bullhorn"></i>
+          <span>SMS / WhatsApp Broadcast</span>
+        </button>
+
+        <button class="nav-item" data-section="admin-section-complaints" onclick="adminPortal.showSection('admin-section-complaints')">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+          <span>Grievance Escalations</span>
+        </button>
+
+        <button class="nav-item" data-section="admin-section-maintenance" onclick="adminPortal.showSection('admin-section-maintenance')">
+          <i class="fa-solid fa-wrench"></i>
+          <span>Maintenance & Grievances</span>
+        </button>
+
+        <button class="nav-item" data-section="admin-section-leave" onclick="adminPortal.showSection('admin-section-leave')">
+          <i class="fa-solid fa-file-signature"></i>
+          <span>HOD Leave Approvals</span>
+        </button>
+
+        <button class="nav-item" data-section="admin-section-fees" onclick="adminPortal.showSection('admin-section-fees')">
+          <i class="fa-solid fa-file-invoice-dollar"></i>
+          <span>Fee & No-Dues Clearance</span>
+        </button>
+
+        <button class="nav-item" data-section="admin-section-transit" onclick="adminPortal.showSection('admin-section-transit')">
+          <i class="fa-solid fa-bus"></i>
+          <span>Ama Bus & GPS Fleet</span>
+        </button>
+
+        <button class="nav-item" data-section="admin-section-telemetry" onclick="adminPortal.showSection('admin-section-telemetry')">
+          <i class="fa-solid fa-server"></i>
+          <span>IoT Gates & Scanners</span>
+        </button>
+
+
+      </nav>
+
+      <!-- Admin User Profile Box -->
+      <div class="sidebar-profile" onclick="adminPortal.showSection('admin-section-profile')" title="Click to view Administrator Profile" role="button" tabindex="0" style="cursor: pointer;">
+        <div class="profile-avatar">
+          <span>AP</span>
+        </div>
+        <div class="profile-info">
+          <span class="profile-name">Dr. A. K. Panda</span>
+          <span class="profile-detail">Administrative Officer &bull; Principal Desk</span>
+        </div>
+        <div class="profile-badge-link"><i class="fa-solid fa-chevron-right"></i></div>
+      </div>
+    </aside>
+    
+    <!-- Mobile Drawer Backdrop Overlay -->
+    <div class="sidebar-backdrop" id="admin-sidebar-backdrop" onclick="adminPortal.closeSidebar()"></div>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      
+      <!-- Top Navigation Bar for Admin -->
+      <header class="top-nav-bar">
+        <div class="nav-left">
+          <button class="mobile-menu-btn" id="admin-mobile-menu-toggle">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+          <div class="search-input-wrapper">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="admin-search-input" placeholder="Search students, faculty, room allocations, circulars, maintenance tickets...">
+          </div>
+        </div>
+
+        <div class="nav-right">
+          <div class="current-section-tag">
+            <i class="fa-solid fa-shield-halved text-blue"></i>
+            <span id="admin-section-title">Executive Overview</span>
+          </div>
+
+          <button class="btn-top btn-primary" onclick="adminPortal.showSection('admin-section-broadcast')">
+            <i class="fa-solid fa-paper-plane"></i> Quick Notice
+          </button>
+
+          <button class="btn-top btn-emerald" onclick="adminPortal.exportCampusReport()">
+            <i class="fa-solid fa-file-csv"></i> Export CSV
+          </button>
+
+          <!-- Sleek Top Admin Profile & Account Switcher Button -->
+          <div class="user-header-profile-card" id="admin-user-profile-btn" title="View Profile or Switch Account">
+            <div class="user-header-profile-click" onclick="adminPortal.showSection('admin-section-profile')" title="View Administrator Dossier">
+              <div class="user-header-avatar" id="admin-user-avatar">AP</div>
+              <div class="user-header-text">
+                <span class="user-header-name" id="admin-user-name">Dr. A. K. Panda</span>
+                <span class="user-header-role" id="admin-user-role-badge">Admin Officer &bull; Principal Desk</span>
+              </div>
+            </div>
+            <div class="user-header-divider"></div>
+            <div class="user-header-action-badge" onclick="adminPortal.openLoginModal()" title="Switch Account / Logout">
+              <i class="fa-solid fa-right-left"></i>
+              <span>Switch</span>
+            </div>
+          </div>
+
+          <a href="index.html" class="btn-top btn-white" style="text-decoration: none;" title="Go to Student Portal">
+            <i class="fa-solid fa-arrow-right-from-bracket"></i> Student View
+          </a>
+        </div>
+      </header>
+
+      <!-- Scrollable Main Container -->
+      <div class="main-body-scroll">
+
+        <!-- ===============================================================
+             ADMIN SECTION 1: EXECUTIVE OVERVIEW & KPIS
+             =============================================================== -->
+        <section class="portal-section active" id="admin-section-overview">
+          
+          <!-- Dynamic High-Level Escalation Warning Alert for Admin -->
+          <div id="admin-warning-banner-container"></div>
+
+          <div class="welcome-card card-admin-theme">
+            <div class="welcome-text">
+              <div class="welcome-badge">
+                <i class="fa-solid fa-shield-halved text-blue"></i> Principal & Administrative Office &bull; CampusEZ India
+              </div>
+              <h1>CampusEZ &mdash; Executive Administrative Command Center</h1>
+              
+              <div class="quick-action-bar">
+                <button class="btn btn-primary" onclick="adminPortal.showSection('admin-section-broadcast')">
+                  <i class="fa-solid fa-bullhorn"></i> Dispatch Emergency Notice
+                </button>
+                <button class="btn btn-purple" onclick="adminPortal.showSection('admin-section-complaints')">
+                  <i class="fa-solid fa-triangle-exclamation"></i> Grievance Oversight <span class="badge-pill pill-red badge-pulse" id="btn-admin-overview-alert-count">11 Active ⚠️</span>
+                </button>
+                <button class="btn btn-outline" id="btn-admin-telemetry-sync" onclick="adminPortal.refreshTelemetry(this)">
+                  <i class="fa-solid fa-rotate" id="admin-sync-icon"></i> <span id="admin-sync-text">Sync Live Telemetry</span>
+                </button>
+                <button class="btn btn-emerald" onclick="adminPortal.exportCampusReport()">
+                  <i class="fa-solid fa-download"></i> Download Campus Report (CSV)
+                </button>
+                <button class="btn btn-white" onclick="adminPortal.validateFeeClearance()">
+                  <i class="fa-solid fa-check-double text-emerald"></i> Verify Semester Fee Clearance
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- High-Impact Admin KPI Metric Cards Grid -->
+          <div class="admin-kpi-grid">
+            
+            <div class="admin-kpi-card">
+              <div class="kpi-icon-wrap bg-blue-subtle text-blue"><i class="fa-solid fa-users"></i></div>
+              <div class="kpi-info">
+                <span class="kpi-label">Total Active Students</span>
+                <h3 class="kpi-val" id="admin-kpi-students">1,842</h3>
+                <div class="kpi-sub-row">
+                  <span class="text-emerald font-bold"><i class="fa-solid fa-arrow-trend-up"></i> 94.2% Attendance Today</span>
+                  <span>MCA, MBA, BCA, BBA</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="admin-kpi-card">
+              <div class="kpi-icon-wrap bg-emerald-subtle text-emerald"><i class="fa-solid fa-chalkboard-user"></i></div>
+              <div class="kpi-info">
+                <span class="kpi-label">Faculty & Academic Staff</span>
+                <h3 class="kpi-val" id="admin-kpi-faculty">62 / 68</h3>
+                <div class="kpi-sub-row">
+                  <span class="text-emerald font-bold">91.2% On Campus</span>
+                  <span>4 Academic Duty &bull; 2 Leave</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="admin-kpi-card" onclick="adminPortal.showSection('admin-section-complaints')" style="cursor:pointer; border-color: #fda4af;">
+              <div class="kpi-icon-wrap" style="background:#ffe4e6; color:#e11d48;"><i class="fa-solid fa-triangle-exclamation"></i></div>
+              <div class="kpi-info">
+                <span class="kpi-label">Student Complaints (>10 Warning)</span>
+                <h3 class="kpi-val text-red" id="admin-kpi-complaints">11 Active</h3>
+                <div class="kpi-sub-row">
+                  <span class="text-red font-bold badge-pulse"><i class="fa-solid fa-bell"></i> WARNING ACTIVE</span>
+                  <span>Prof. Mohanty (11)</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="admin-kpi-card">
+              <div class="kpi-icon-wrap bg-amber-subtle text-amber"><i class="fa-solid fa-indian-rupee-sign"></i></div>
+              <div class="kpi-info">
+                <span class="kpi-label">Semester Fee Collection</span>
+                <h3 class="kpi-val" id="admin-kpi-fees">₹1.42 Cr</h3>
+                <div class="kpi-sub-row">
+                  <span class="text-emerald font-bold">88.6% Cleared</span>
+                  <span>₹18.4L Pending</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="admin-kpi-card">
+              <div class="kpi-icon-wrap bg-purple-subtle text-purple"><i class="fa-solid fa-bus"></i></div>
+              <div class="kpi-info">
+                <span class="kpi-label">Live Campus & City Buses</span>
+                <h3 class="kpi-val" id="admin-kpi-buses">7 Active</h3>
+                <div class="kpi-sub-row">
+                  <span class="text-emerald font-bold"><i class="fa-solid fa-satellite-dish"></i> GPS Telemetry 100%</span>
+                  <span>4 Ama Bus + 3 RIMS</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="admin-kpi-card">
+              <div class="kpi-icon-wrap bg-emerald-subtle text-emerald"><i class="fa-solid fa-utensils"></i></div>
+              <div class="kpi-info">
+                <span class="kpi-label">Canteen Revenue Today</span>
+                <h3 class="kpi-val" id="admin-kpi-canteen">₹38,640</h3>
+                <div class="kpi-sub-row">
+                  <span class="text-emerald font-bold">312 Orders</span>
+                  <span>91.5% via UPI QR</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="admin-kpi-card">
+              <div class="kpi-icon-wrap bg-amber-subtle text-amber"><i class="fa-solid fa-wrench"></i></div>
+              <div class="kpi-info">
+                <span class="kpi-label">Maintenance & Grievances</span>
+                <h3 class="kpi-val text-amber" id="admin-kpi-tickets">3 Pending</h3>
+                <div class="kpi-sub-row">
+                  <span class="text-emerald font-bold">18 Resolved This Week</span>
+                  <span>Avg: 1.8h Fix Time</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- 3-Chart Admin Analytics Grid -->
+          <div class="admin-charts-grid-3col">
+            
+            <div class="main-card chart-card-box">
+              <div class="card-top-bar">
+                <h4 class="card-heading"><i class="fa-solid fa-chart-line text-blue"></i> Department Attendance Today (%)</h4>
+                <span class="badge-tag badge-green">94.2% Avg</span>
+              </div>
+              <div class="chart-canvas-box">
+                <canvas id="deptAttendanceChart"></canvas>
+              </div>
+            </div>
+
+            <div class="main-card chart-card-box">
+              <div class="card-top-bar">
+                <h4 class="card-heading"><i class="fa-solid fa-chart-pie text-emerald"></i> Campus Facility Utilization</h4>
+                <span class="badge-tag badge-blue">Real-Time</span>
+              </div>
+              <div class="chart-canvas-box">
+                <canvas id="facilityUsageChart"></canvas>
+              </div>
+            </div>
+
+            <div class="main-card chart-card-box">
+              <div class="card-top-bar">
+                <h4 class="card-heading"><i class="fa-solid fa-coins text-amber"></i> Semester Fee Clearance Trend</h4>
+                <span class="badge-tag badge-green">88.6% Goal</span>
+              </div>
+              <div class="chart-canvas-box">
+                <canvas id="feeTrendChart"></canvas>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Quick Navigation Shortcuts -->
+          <div class="admin-quick-links-grid">
+            <div class="admin-link-card" onclick="adminPortal.showSection('admin-section-complaints')" style="border-left: 3px solid #f43f5e;">
+              <div class="admin-link-icon" style="background: #ffe4e6; color: #e11d48;"><i class="fa-solid fa-triangle-exclamation"></i></div>
+              <div class="admin-link-info">
+                <strong style="color: #9f1239;">Student Grievance & Escalation Control</strong>
+                <span>11 complaints logged &bull; ⚠️ Regulatory warning threshold exceeded</span>
+              </div>
+              <i class="fa-solid fa-chevron-right text-muted"></i>
+            </div>
+
+            <div class="admin-link-card" onclick="adminPortal.showSection('admin-section-broadcast')">
+              <div class="admin-link-icon bg-blue-subtle text-blue"><i class="fa-solid fa-bullhorn"></i></div>
+              <div class="admin-link-info">
+                <strong>Emergency Broadcast Dispatcher</strong>
+                <span>Push urgent notices via SMS, WhatsApp & App</span>
+              </div>
+              <i class="fa-solid fa-chevron-right text-muted"></i>
+            </div>
+
+            <div class="admin-link-card" onclick="adminPortal.showSection('admin-section-timetable')">
+              <div class="admin-link-icon bg-amber-subtle text-amber"><i class="fa-solid fa-clock-rotate-left"></i></div>
+              <div class="admin-link-info">
+                <strong>Suspend / Reschedule Classes</strong>
+                <span>Instant academic timetable modifier and hall allocation</span>
+              </div>
+              <i class="fa-solid fa-chevron-right text-muted"></i>
+            </div>
+
+            <div class="admin-link-card" onclick="adminPortal.showSection('admin-section-maintenance')">
+              <div class="admin-link-icon bg-emerald-subtle text-emerald"><i class="fa-solid fa-wrench"></i></div>
+              <div class="admin-link-info">
+                <strong>Maintenance & Grievances Desk</strong>
+                <span>Track electrical, plumbing, Wi-Fi & projector tickets</span>
+              </div>
+              <i class="fa-solid fa-chevron-right text-muted"></i>
+            </div>
+
+            <div class="admin-link-card" onclick="adminPortal.showSection('admin-section-leave')">
+              <div class="admin-link-icon bg-purple-subtle text-purple"><i class="fa-solid fa-file-signature"></i></div>
+              <div class="admin-link-info">
+                <strong>Student Leave Approvals</strong>
+                <span>Digital verification and attendance condonations</span>
+              </div>
+              <i class="fa-solid fa-chevron-right text-muted"></i>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- ===============================================================
+             ADMIN SECTION: STUDENT GRIEVANCES & ESCALATION CONTROL DESK
+             =============================================================== -->
+        <section class="portal-section" id="admin-section-complaints" style="display: none;">
+          
+          <div class="section-banner">
+            <div>
+              <span class="section-micro-badge"><i class="fa-solid fa-shield-halved"></i> Executive Redressal</span>
+              <h2 class="section-main-heading">Student Grievance & Faculty Escalation Oversight</h2>
+            </div>
+            <div class="bus-status-pill" id="admin-pill-escalation">
+              <i class="fa-solid fa-triangle-exclamation text-amber"></i>
+              <div>
+                <strong id="admin-escalation-pill-count">11 Active Complaints</strong>
+                <span>1 Faculty Breached Threshold (>10)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Demo Simulator Bar in Admin Portal -->
+          <div class="demo-sim-bar">
+            <div class="demo-sim-title">
+              <i class="fa-solid fa-bolt"></i>
+              <span>Escalation Protocol Simulator (10+ Warning Demo Controls)</span>
+            </div>
+            <div class="demo-sim-actions">
+              <button class="demo-sim-btn demo-sim-btn-trigger" onclick="adminPortal.simulateOverTenComplaints()">
+                <i class="fa-solid fa-triangle-exclamation"></i> Simulate 11 Complaints (>10 Warning)
+              </button>
+              <button class="demo-sim-btn demo-sim-btn-add" onclick="adminPortal.openShowCauseModal('Prof. Dr. S. K. Mohanty')">
+                <i class="fa-solid fa-file-invoice"></i> Issue Show-Cause Notice
+              </button>
+              <button class="demo-sim-btn demo-sim-btn-reset" onclick="adminPortal.resolveSampleComplaints()">
+                <i class="fa-solid fa-check"></i> Resolve 3 (Safe Status)
+              </button>
+              <button class="demo-sim-btn demo-sim-btn-reset" onclick="adminPortal.resetComplaintsDemo()">
+                <i class="fa-solid fa-rotate-left"></i> Reset Demo
+              </button>
+            </div>
+          </div>
+
+          <!-- Escalation Warning Banner in Admin Section -->
+          <div id="admin-complaints-section-warning-banner"></div>
+
+          <!-- Filter & Action Controls -->
+          <div class="main-card">
+            <div class="card-top-bar" style="flex-wrap: wrap; gap: 12px;">
+              <div>
+                <h3 class="card-heading"><i class="fa-solid fa-table-list text-blue"></i> Institutional Grievance & Escalations Queue</h3>
+                <p class="card-subheading">Review, filter, and take executive action on logged complaints</p>
+              </div>
+              <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                <button class="btn-sm btn-outline active" id="filter-admin-all" onclick="adminPortal.filterComplaints('all')">All Grievances (12)</button>
+                <button class="btn-sm btn-outline" id="filter-admin-faculty" onclick="adminPortal.filterComplaints('faculty')">Faculty Breaches (11 ⚠️)</button>
+                <button class="btn-sm btn-outline" id="filter-admin-admin" onclick="adminPortal.filterComplaints('admin')">Campus Depts (1)</button>
+                <button class="btn-sm btn-primary" onclick="adminPortal.openShowCauseModal('Prof. Dr. S. K. Mohanty')">
+                  <i class="fa-solid fa-gavel"></i> Issue Formal Faculty Notice
+                </button>
+              </div>
+            </div>
+
+            <div id="admin-complaints-table-container" style="overflow-x: auto; margin: 0 -22px; border-top: 1px solid var(--border-light);">
+              <!-- Dynamically populated via JS -->
+            </div>
+          </div>
+
+        </section>
+
+        <!-- ===============================================================
+             ADMIN SECTION 2: TIMETABLE & CLASS SUSPENSION CONTROL
+             =============================================================== -->
+        <section class="portal-section" id="admin-section-timetable" style="display: none;">
+          
+          <div class="section-banner">
+            <div>
+              <span class="section-micro-badge"><i class="fa-solid fa-calendar-check"></i> Academic Control</span>
+              <h2 class="section-main-heading">Class Suspension & Lecture Hall Management</h2>
+            </div>
+          </div>
+
+          <div class="main-card">
+            <div class="card-top-bar">
+              <h3 class="card-heading"><i class="fa-solid fa-list-check text-blue"></i> Today's Schedule Control Roster (Monday)</h3>
+              <span class="badge-tag badge-green">6 Active Slots</span>
+            </div>
+
+            <div class="faculty-student-list">
+              <div class="student-att-row" id="class-row-MCA-301">
+                <div>
+                  <strong>09:00 AM - 10:00 AM</strong> &bull; MCA-301: Advanced Java Frameworks
+                  <span class="text-muted block text-sm"><i class="fa-solid fa-user-tie"></i> Prof. Dr. S. K. Mohanty &bull; Room 204</span>
+                </div>
+                <span class="status-badge badge-green" id="class-status-MCA-301">Scheduled (Active)</span>
+                <button class="btn-sm btn-outline" id="class-btn-MCA-301" onclick="adminPortal.suspendClass('MCA-301')">Suspend Class</button>
+              </div>
+
+              <div class="student-att-row" id="class-row-MCA-302">
+                <div>
+                  <strong>10:00 AM - 11:00 AM</strong> &bull; MCA-302: Cloud Computing & Virtualization
+                  <span class="text-muted block text-sm"><i class="fa-solid fa-user-tie"></i> Dr. P. K. Nayak &bull; Room 204</span>
+                </div>
+                <span class="status-badge badge-green" id="class-status-MCA-302">Scheduled (Active)</span>
+                <button class="btn-sm btn-outline" id="class-btn-MCA-302" onclick="adminPortal.suspendClass('MCA-302')">Suspend Class</button>
+              </div>
+
+              <div class="student-att-row" id="class-row-MCA-304">
+                <div>
+                  <strong>12:15 PM - 01:15 PM</strong> &bull; MCA-304: Software Engineering & Agile Testing
+                  <span class="text-muted block text-sm"><i class="fa-solid fa-user-tie"></i> Prof. R. C. Mishra &bull; Room 204</span>
+                </div>
+                <span class="status-badge badge-amber" id="class-status-MCA-304">🚫 Suspended (Prof. on University Duty)</span>
+                <button class="btn-sm btn-emerald" id="class-btn-MCA-304" onclick="adminPortal.restoreClass('MCA-304')">Restore Class</button>
+              </div>
+
+              <div class="student-att-row" id="class-row-MCA-305">
+                <div>
+                  <strong>02:30 PM - 04:30 PM</strong> &bull; MCA-305: Python AI & ML Practical Lab
+                  <span class="text-muted block text-sm"><i class="fa-solid fa-user-tie"></i> Dr. Ananya Panda &bull; Computer Lab 02</span>
+                </div>
+                <span class="status-badge badge-green" id="class-status-MCA-305">Scheduled (Lab 02)</span>
+                <button class="btn-sm btn-outline" id="class-btn-MCA-305" onclick="adminPortal.suspendClass('MCA-305')">Suspend Class</button>
+              </div>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- ===============================================================
+             ADMIN SECTION 3: EMERGENCY BROADCAST DISPATCHER
+             =============================================================== -->
+        <section class="portal-section" id="admin-section-broadcast" style="display: none;">
+          
+          <div class="section-banner">
+            <div>
+              <span class="section-micro-badge"><i class="fa-solid fa-paper-plane"></i> Multi-Channel Push</span>
+              <h2 class="section-main-heading">Instant SMS, WhatsApp & App Circular Dispatcher</h2>
+            </div>
+          </div>
+
+          <div class="content-row-2col">
+            <div class="main-card">
+              <div class="card-top-bar">
+                <h3 class="card-heading"><i class="fa-solid fa-pen-nib text-blue"></i> Compose College Circular</h3>
+              </div>
+
+              <form class="simple-form" onsubmit="adminPortal.handleBroadcastSubmit(event)">
+                <div class="form-group">
+                  <label for="notice-target"><i class="fa-solid fa-users"></i> Target Recipient Group:</label>
+                  <select id="notice-target" required>
+                    <option value="All Students & Faculty (Entire RIMS College - 1,842)">All Students & Faculty (Entire RIMS College - 1,842)</option>
+                    <option value="MBA Students (1st & 2nd Year - 180)">MBA Students (1st & 2nd Year - 180)</option>
+                    <option value="MCA & BCA Students (360)">MCA & BCA Students (360)</option>
+                    <option value="Chhend Hostel Residents (420)">Chhend Hostel Residents (420)</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="notice-title"><i class="fa-solid fa-heading"></i> Circular Heading:</label>
+                  <input type="text" id="notice-title" placeholder="e.g. TCS Campus Placement Drive: Registration Open" required>
+                </div>
+
+                <div class="form-group">
+                  <label for="notice-body"><i class="fa-solid fa-message"></i> Circular Text / Description:</label>
+                  <textarea id="notice-body" rows="4" placeholder="Provide complete circular details, deadlines, and room numbers..." required></textarea>
+                </div>
+
+                <div class="form-btn-row">
+                  <button type="button" class="btn btn-outline" onclick="adminPortal.fillSampleNotice()">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> Load Sample Notice
+                  </button>
+                  <button type="submit" class="btn btn-primary">
+                    <i class="fa-solid fa-paper-plane"></i> Dispatch to 1,842 Students
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            <!-- Recent Broadcasts Log -->
+            <div class="main-card">
+              <div class="card-top-bar">
+                <h3 class="card-heading"><i class="fa-solid fa-clock-rotate-left text-emerald"></i> Recent Dispatches History</h3>
+                <span class="badge-tag badge-green">Delivered</span>
+              </div>
+
+              <div class="circular-list" id="admin-broadcasts-history">
+                <div class="circular-item">
+                  <span class="circ-badge badge-blue">SMS + APP</span>
+                  <div class="circ-details">
+                    <strong>Semester Examination Hall Tickets Released</strong>
+                    <span>Sent to: MCA, MBA & BCA Students &bull; 99.4% Delivery</span>
+                  </div>
+                  <span class="circ-date">Today, 08:30 AM</span>
+                </div>
+
+                <div class="circular-item">
+                  <span class="circ-badge badge-green">WHATSAPP</span>
+                  <div class="circ-details">
+                    <strong>Canteen Fast-Pass Pre-Order with UPI QR Active</strong>
+                    <span>Sent to: Entire CampusEZ Campus &bull; 100% Delivery</span>
+                  </div>
+                  <span class="circ-date">Yesterday</span>
+                </div>
+
+                <div class="circular-item">
+                  <span class="circ-badge badge-amber">URGENT</span>
+                  <div class="circ-details">
+                    <strong>Campus Transit Route 101 Schedule Synchronization</strong>
+                    <span>Sent to: Central Campus Commuters</span>
+                  </div>
+                  <span class="circ-date">21-Mar-2026</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- ===============================================================
+             ADMIN SECTION 4: MAINTENANCE & GRIEVANCES DESK
+             =============================================================== -->
+        <section class="portal-section" id="admin-section-maintenance" style="display: none;">
+          
+          <div class="section-banner">
+            <div>
+              <span class="section-micro-badge"><i class="fa-solid fa-wrench"></i> Infrastructure Maintenance</span>
+              <h2 class="section-main-heading">Campus Maintenance & Grievance Tickets</h2>
+            </div>
+            <div class="bus-status-pill">
+              <i class="fa-solid fa-check text-emerald"></i>
+              <div>
+                <strong>18 Tickets Resolved</strong>
+                <span>This Semester &bull; 1.8h Avg Resolution</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="main-card">
+            <div class="card-top-bar">
+              <h3 class="card-heading"><i class="fa-solid fa-list-check text-amber"></i> Live Maintenance Queue</h3>
+              <button class="btn btn-outline" onclick="adminPortal.addNewGrievance()">
+                <i class="fa-solid fa-plus"></i> Log New Campus Ticket
+              </button>
+            </div>
+
+            <div class="admin-tickets-container" id="admin-tickets-list">
+              <!-- Populated via JS -->
+            </div>
+          </div>
+
+        </section>
+
+        <!-- ===============================================================
+             ADMIN SECTION 5: HOD LEAVE APPROVALS & CONDONATIONS
+             =============================================================== -->
+        <section class="portal-section" id="admin-section-leave" style="display: none;">
+          
+          <div class="section-banner">
+            <div>
+              <span class="section-micro-badge"><i class="fa-solid fa-file-circle-check"></i> HOD Verification</span>
+              <h2 class="section-main-heading">Student & Faculty Leave Approvals</h2>
+            </div>
+          </div>
+
+          <div class="main-card">
+            <div class="card-top-bar">
+              <h3 class="card-heading"><i class="fa-solid fa-user-check text-blue"></i> Pending Leave Applications</h3>
+              <span class="badge-tag badge-amber" id="admin-pending-leave-badge">1 Application Awaiting HOD Action</span>
+            </div>
+
+            <div class="faculty-student-list" id="admin-leave-approval-list">
+              <!-- Dynamically populated via fetchLeaves() -->
+            </div>
+          </div>
+
+        </section>
+
+        <!-- ===============================================================
+             ADMIN SECTION 6: FEE COLLECTION & NO-DUES VALIDATOR
+             =============================================================== -->
+        <section class="portal-section" id="admin-section-fees" style="display: none;">
+          
+          <div class="section-banner">
+            <div>
+              <span class="section-micro-badge"><i class="fa-solid fa-receipt"></i> Accounts & Finance Desk</span>
+              <h2 class="section-main-heading">Semester Fee Clearance & No-Dues Verification</h2>
+            </div>
+            <div class="leave-status-summary-pill">
+              <i class="fa-solid fa-indian-rupee-sign text-emerald"></i>
+              <div>
+                <strong>₹1.42 Cr Collected (88.6%)</strong>
+                <span>₹18.4L Pending Across All Batches</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="main-card">
+            <div class="card-top-bar">
+              <h3 class="card-heading"><i class="fa-solid fa-magnifying-glass text-blue"></i> Student No-Dues Clearance Lookup</h3>
+            </div>
+
+            <div class="chat-input-row" style="margin-bottom: 16px;">
+              <input type="text" id="fee-lookup-input" value="23MCA014" placeholder="Enter Roll No (e.g. 23MCA014) or Reg No (2305202014)...">
+              <button class="btn btn-primary" onclick="adminPortal.searchStudentDues()">
+                <i class="fa-solid fa-search"></i> Check Student Dues
+              </button>
+            </div>
+
+            <div class="admit-student-grid" id="fee-lookup-result">
+              <div class="admit-data-item">
+                <span class="admit-label">Candidate Name:</span>
+                <strong class="admit-val">Soumya Patnaik</strong>
+              </div>
+              <div class="admit-data-item">
+                <span class="admit-label">Roll Number:</span>
+                <strong class="admit-val">23MCA014</strong>
+              </div>
+              <div class="admit-data-item">
+                <span class="admit-label">Semester Fee (MCA 3rd Sem):</span>
+                <strong class="admit-val text-emerald">₹45,000 (100% PAID &bull; Receipt #CEZ-REC-9041)</strong>
+              </div>
+              <div class="admit-data-item">
+                <span class="admit-label">Library Outstanding Dues:</span>
+                <strong class="admit-val text-emerald">₹0.00 (No Dues Verified)</strong>
+              </div>
+              <div class="admit-data-item">
+                <span class="admit-label">Hostel Dues:</span>
+                <strong class="admit-val text-emerald">₹0.00 (Cleared)</strong>
+              </div>
+              <div class="admit-data-item">
+                <span class="admit-label">Admit Card Status:</span>
+                <strong class="admit-val text-emerald">✅ ELIGIBLE & RELEASED</strong>
+              </div>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- ===============================================================
+             ADMIN SECTION 7: TRANSIT & AMA BUS FLEET TELEMETRY
+             =============================================================== -->
+        <section class="portal-section" id="admin-section-transit" style="display: none;">
+          
+          <div class="section-banner">
+            <div>
+              <span class="section-micro-badge"><i class="fa-solid fa-satellite"></i> CRUT Odisha & RIMS Fleet</span>
+              <h2 class="section-main-heading">Ama Bus & Campus Transit Operational Control</h2>
+            </div>
+            <button class="btn btn-outline" onclick="adminPortal.refreshTelemetry(this)">
+              <i class="fa-solid fa-satellite-dish"></i> Ping Bus Satellites
+            </button>
+          </div>
+
+          <div class="bus-map-layout-grid">
+            <div class="bus-routes-list">
+              <div class="bus-card active-bus">
+                <div class="bus-icon-wrap bg-emerald-subtle text-emerald"><i class="fa-solid fa-bus"></i></div>
+                <div class="bus-details">
+                  <div class="bus-header-row">
+                    <span class="ama-route-number">Route 101</span>
+                    <h4>Ama Bus: Station ⇄ Panposh ⇄ RIMS Chhend</h4>
+                    <span class="status-badge badge-green">4 Mins Away</span>
+                  </div>
+                  <p class="bus-route-stops">OD-14-AX-5021 &bull; Speed: 34 km/h &bull; Driver Telemetry Active</p>
+                </div>
+              </div>
+
+              <div class="bus-card">
+                <div class="bus-icon-wrap bg-blue-subtle text-blue"><i class="fa-solid fa-bus"></i></div>
+                <div class="bus-details">
+                  <div class="bus-header-row">
+                    <span class="ama-route-number">Route 105</span>
+                    <h4>Ama Bus: Birsa Munda Stadium ⇄ RIMS</h4>
+                    <span class="status-badge badge-blue">11 Mins Away</span>
+                  </div>
+                  <p class="bus-route-stops">OD-14-AY-8190 &bull; Speed: 28 km/h &bull; 22 Seats Free</p>
+                </div>
+              </div>
+
+              <div class="bus-card">
+                <div class="bus-icon-wrap"><i class="fa-solid fa-van-shuttle text-blue"></i></div>
+                <div class="bus-details">
+                  <div class="bus-header-row">
+                    <h4>College Bus #01: Station ⇄ Panposh ⇄ RIMS</h4>
+                    <span class="status-badge badge-green">8 Mins ETA</span>
+                  </div>
+                  <p class="bus-route-stops">Driver: Bikash Nayak (+91 94371 88210) &bull; Near Panposh Flyover</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right Embedded Google Map -->
+            <div class="main-card gmap-container-card">
+              <div class="card-top-bar gmap-top-bar">
+                <h3 class="card-heading"><i class="fa-solid fa-map-location-dot text-blue"></i> Transit Live Corridor Map (India)</h3>
+                <span class="badge-tag badge-blue">Central Campus</span>
+              </div>
+              <div class="gmap-iframe-wrap">
+                <iframe 
+                  id="admin-google-map"
+                  title="CampusEZ India Google Map"
+                  src="https://maps.google.com/maps?q=India+Gate,+New+Delhi,+India&t=&z=14&ie=UTF8&iwloc=&output=embed"
+                  width="100%" 
+                  height="300" 
+                  style="border:0; border-radius: var(--radius-sm);" 
+                  allowfullscreen="" 
+                  loading="lazy">
+                </iframe>
+              </div>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- ===============================================================
+             ADMIN SECTION: FACULTY DASHBOARD DETAILS
+             =============================================================== -->
+        <section class="portal-section" id="admin-section-faculty" style="display: none;">
+          <div class="welcome-card card-faculty-theme">
+            <div class="welcome-text">
+              <div class="welcome-badge">
+                <i class="fa-solid fa-chalkboard-user"></i> Faculty Details (Moved from Student Portal)
+              </div>
+              <h1>Prof. Dr. S. K. Mohanty Dashboard</h1>
+              
+              <div class="quick-action-bar">
+                <button class="btn btn-primary" onclick="adminPortal.showSection('admin-section-faculty-attendance')">
+                  <i class="fa-solid fa-check-double"></i> 1-Click Class Attendance (MCA-301)
+                </button>
+                <button class="btn btn-purple" onclick="adminPortal.showSection('admin-section-complaints')">
+                  <i class="fa-solid fa-triangle-exclamation"></i> Student Grievances
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="summary-cards-grid">
+            <div class="summary-card card-schedule">
+              <div class="card-icon-box"><i class="fa-solid fa-users"></i></div>
+              <div class="card-text-box">
+                <span class="card-label">Enrolled Students</span>
+                <div class="card-value-row"><h3 class="card-value">60 Students</h3></div>
+                <p class="card-helper-text">MCA 2024-26 Batch &bull; 93.3% Avg Attendance</p>
+              </div>
+            </div>
+            <div class="summary-card card-attendance">
+              <div class="card-icon-box"><i class="fa-solid fa-laptop-code"></i></div>
+              <div class="card-text-box">
+                <span class="card-label">Lab Allocation Today</span>
+                <div class="card-value-row"><h3 class="card-value text-emerald">Lab 02 Reserved</h3></div>
+                <p class="card-helper-text">Cloud Practical &bull; 2:30 PM - 4:30 PM</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===============================================================
+             ADMIN SECTION: FACULTY 1-CLICK ATTENDANCE
+             =============================================================== -->
+        <section class="portal-section" id="admin-section-faculty-attendance" style="display: none;">
+          <div class="main-card">
+            <div class="card-top-bar">
+              <div>
+                <h3 class="card-heading"><i class="fa-solid fa-users-viewfinder text-blue"></i> Fast RFID Attendance: MCA-301 (Java Enterprise)</h3>
+                <p class="card-subheading">Students auto-scanned at Academic Block-A Door. Review and submit with one click.</p>
+              </div>
+              <span class="badge-tag badge-green">Date: 23-03-2026</span>
+            </div>
+
+            <div class="faculty-student-list">
+              <div class="student-att-row">
+                <span class="st-roll">Roll #01</span>
+                <span class="st-name">Abhilash Behera</span>
+                <span class="status-badge badge-green">Present (RFID 09:28 AM)</span>
+              </div>
+              <div class="student-att-row">
+                <span class="st-roll">Roll #02</span>
+                <span class="st-name">Ananya Tripathy</span>
+                <span class="status-badge badge-green">Present (RFID 09:29 AM)</span>
+              </div>
+              <div class="student-att-row">
+                <span class="st-roll">Roll #03</span>
+                <span class="st-name">Debasish Samal</span>
+                <span class="status-badge badge-amber">Late (09:38 AM)</span>
+              </div>
+              <div class="student-att-row">
+                <span class="st-roll">Roll #14</span>
+                <span class="st-name">Soumya Patnaik</span>
+                <span class="status-badge badge-green">Present (RFID 09:25 AM)</span>
+              </div>
+            </div>
+
+            <div class="faculty-att-footer">
+              <span>Present: <strong>56 / 60 Students (93.3%)</strong></span>
+              <button class="btn btn-emerald" onclick="alert('Attendance Submitted')">
+                <i class="fa-solid fa-cloud-arrow-up"></i> Submit Attendance to CampusEZ Server
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===============================================================
+             ADMIN SECTION 8: IOT HARDWARE & GATE SCANNERS
+             =============================================================== -->
+        <section class="portal-section" id="admin-section-telemetry" style="display: none;">
+          
+          <div class="section-banner">
+            <div>
+              <span class="section-micro-badge"><i class="fa-solid fa-microchip"></i> Physical Checkpoints</span>
+              <h2 class="section-main-heading">IoT Hardware & Door RFID Scanner Array</h2>
+            </div>
+            <span class="status-badge badge-green"><i class="fa-solid fa-circle-check"></i> 100% Hardware Uptime</span>
+          </div>
+
+          <div class="admin-telemetry-grid">
+            <div class="telemetry-node-card">
+              <div class="node-header">
+                <div class="node-title-group">
+                  <span class="telemetry-status-dot dot-online"></span>
+                  <strong>Main Gate 1 RFID Array</strong>
+                </div>
+                <span class="node-latency">18ms</span>
+              </div>
+              <p class="node-desc">Chhend Ring Road Long-Range RFID Antenna</p>
+              <div class="node-stats">
+                <span>Today's Inflow: <strong>1,640 Scans</strong></span>
+                <span class="text-emerald font-bold">Online</span>
+              </div>
+            </div>
+
+            <div class="telemetry-node-card">
+              <div class="node-header">
+                <div class="node-title-group">
+                  <span class="telemetry-status-dot dot-online"></span>
+                  <strong>Academic Block-A Terminal</strong>
+                </div>
+                <span class="node-latency">12ms</span>
+              </div>
+              <p class="node-desc">Smart Card & Biometric Door Scanner (Floors 1-3)</p>
+              <div class="node-stats">
+                <span>Lecture Scans: <strong>890 Scans</strong></span>
+                <span class="text-emerald font-bold">Online</span>
+              </div>
+            </div>
+
+            <div class="telemetry-node-card">
+              <div class="node-header">
+                <div class="node-title-group">
+                  <span class="telemetry-status-dot dot-online"></span>
+                  <strong>Library Flap Turnstile</strong>
+                </div>
+                <span class="node-latency">15ms</span>
+              </div>
+              <p class="node-desc">Biju Patnaik Central Library Barcode & RFID Gate</p>
+              <div class="node-stats">
+                <span>Footfall: <strong>420 Check-ins</strong></span>
+                <span class="text-emerald font-bold">Online</span>
+              </div>
+            </div>
+
+            <div class="telemetry-node-card">
+              <div class="node-header">
+                <div class="node-title-group">
+                  <span class="telemetry-status-dot dot-online"></span>
+                  <strong>Campus Wi-Fi Mesh Core</strong>
+                </div>
+                <span class="node-latency">8ms</span>
+              </div>
+              <p class="node-desc">Aruba Enterprise Controllers & Gigabit Backbone</p>
+              <div class="node-stats">
+                <span>Connected Devices: <strong>1,280 Clients</strong></span>
+                <span class="text-emerald font-bold">99.8% Uptime</span>
+              </div>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- ===============================================================
+             ADMIN SECTION: ADMINISTRATOR PROFILE & EXECUTIVE DOSSIER
+             =============================================================== -->
+        <section class="portal-section" id="admin-section-profile" style="display: none;">
+          
+          <!-- Admin Profile Hero Card -->
+          <div class="profile-hero-card">
+            <div class="profile-hero-bg-accent"></div>
+            <div class="profile-hero-content">
+              
+              <div class="profile-avatar-wrapper">
+                <div class="profile-avatar-large" style="background: linear-gradient(135deg, #1e40af 0%, #1e1b4b 100%);">
+                  <span>AP</span>
+                </div>
+                <div class="profile-online-badge" title="Master Administrator Clearance Level 5">
+                  <i class="fa-solid fa-shield"></i>
+                </div>
+              </div>
+
+              <div class="profile-identity-details">
+                <div class="profile-badge-strip">
+                  <span class="badge-status-pill verified">
+                    <i class="fa-solid fa-shield-halved"></i> Executive Administration
+                  </span>
+                  <span class="badge-status-pill campus">
+                    <i class="fa-solid fa-building-columns"></i> Principal Office &bull; CampusEZ India
+                  </span>
+                  <span class="badge-status-pill session">
+                    <i class="fa-solid fa-key"></i> Clearance Level 5 (Master Root)
+                  </span>
+                </div>
+
+                <h2 class="profile-display-name">Dr. A. K. Panda</h2>
+                <p class="profile-display-sub">
+                  Administrative Officer &bull; Principal Desk & Institutional Governance
+                </p>
+
+                <div class="profile-meta-chips-row">
+                  <div class="meta-chip">
+                    <i class="fa-solid fa-id-card text-blue"></i>
+                    <span>Officer ID: <strong>CEZ-ADM-001</strong></span>
+                  </div>
+                  <div class="meta-chip">
+                    <i class="fa-solid fa-envelope text-emerald"></i>
+                    <span>Email: <strong>admin.office@campusez.in</strong></span>
+                  </div>
+                  <div class="meta-chip">
+                    <i class="fa-solid fa-phone text-amber"></i>
+                    <span>Intercom: <strong>#101 / Ext 204</strong></span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="profile-hero-actions">
+                <button class="btn btn-primary btn-lg" onclick="adminPortal.showSection('admin-section-broadcast')">
+                  <i class="fa-solid fa-bullhorn"></i>
+                  <span>Send Broadcast</span>
+                </button>
+                <button class="btn btn-emerald btn-lg" onclick="adminPortal.exportCampusReport()">
+                  <i class="fa-solid fa-file-export"></i>
+                  <span>Export Report</span>
+                </button>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Admin Profile Detail Cards -->
+          <div class="profile-grid-2col" style="margin-top: 18px;">
+            <div class="profile-info-card">
+              <div class="prof-card-title">
+                <i class="fa-solid fa-user-tie text-blue"></i>
+                <h4>Administrative Officer Dossier</h4>
+              </div>
+              <div class="prof-info-list">
+                <div class="prof-info-row">
+                  <span class="label">Full Legal Name:</span>
+                  <span class="val"><strong>Dr. Asit Kumar Panda</strong></span>
+                </div>
+                <div class="prof-info-row">
+                  <span class="label">Designation:</span>
+                  <span class="val">Administrative Officer &bull; Principal Office In-Charge</span>
+                </div>
+                <div class="prof-info-row">
+                  <span class="label">Institutional Office:</span>
+                  <span class="val">Principal Secretarial Wing, Ground Floor, Admin Block</span>
+                </div>
+                <div class="prof-info-row">
+                  <span class="label">Qualifications:</span>
+                  <span class="val">Ph.D. in Management, M.Phil, MBA</span>
+                </div>
+                <div class="prof-info-row">
+                  <span class="label">Administrative Tenure:</span>
+                  <span class="val">16 Years Institutional Service at CampusEZ</span>
+                </div>
+                <div class="prof-info-row">
+                  <span class="label">Direct Contact:</span>
+                  <span class="val">+91 1800 123 4567 / +91 94370 12345</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="profile-info-card">
+              <div class="prof-card-title">
+                <i class="fa-solid fa-shield-check text-emerald"></i>
+                <h4>Institutional Jurisdiction & System Privileges</h4>
+              </div>
+              <div class="prof-info-list">
+                <div class="prof-info-row">
+                  <span class="label">Academic Coordination:</span>
+                  <span class="val"><span class="badge-tag badge-green">MBA, MCA, BCA, BBA (All 4 Programs)</span></span>
+                </div>
+                <div class="prof-info-row">
+                  <span class="label">University Exam Center:</span>
+                  <span class="val">Center Superintendent &bull; Center Code: <strong>205</strong></span>
+                </div>
+                <div class="prof-info-row">
+                  <span class="label">RFID Master Key:</span>
+                  <span class="val"><code>RF-ADM-MASTER-001</code> (All 12 Gates & Vaults)</span>
+                </div>
+                <div class="prof-info-row">
+                  <span class="label">Campus Bus Fleet:</span>
+                  <span class="val">Supervisory In-Charge for Routes #101 to #108</span>
+                </div>
+                <div class="prof-info-row">
+                  <span class="label">Single Sign-On Clearance:</span>
+                  <span class="val"><span class="badge-tag badge-blue">Full Institutional Master Access</span></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </section>
+
+
+
+
+
+        <!-- College Admin Footer -->
+        <footer class="rims-footer">
+          <div class="footer-col-left">
+            <div class="footer-title">
+              <i class="fa-solid fa-building-columns text-blue"></i>
+              <strong>CampusEZ &bull; Executive Administration (India)</strong>
+            </div>
+            <p>Approved by AICTE & UGC &bull; Central Campus, India - 110001</p>
+            <p class="footer-subtext">Enterprise Campus Management Portal &bull; Principal & HOD Command Center</p>
+          </div>
+          <div class="footer-col-right">
+            <span>Server Status: <strong class="text-emerald">All 14 Systems Operational</strong></span>
+            <span>&copy; 2026 CampusEZ &bull; India. All Rights Reserved.</span>
+          </div>
+        </footer>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- RIMS Authentication & Login Modal -->
+  <div class="modal-overlay" id="rims-login-modal">
+    <div class="modal-box" style="max-width: 480px;">
+      <div class="modal-top">
+        <div class="modal-title-wrap">
+          <div class="modal-icon bg-blue-subtle text-blue"><i class="fa-solid fa-user-lock"></i></div>
+          <div>
+            <h3>CampusEZ Executive Login</h3>
+            <p>Single Sign-On for Principal, HODs & Administrative Officers</p>
+          </div>
+        </div>
+        <button class="modal-close-x" onclick="adminPortal.closeModals()">&times;</button>
+      </div>
+
+      <div class="modal-form-content">
+        <!-- Login Form -->
+        <form class="simple-form" onsubmit="adminPortal.handleLoginSubmit(event)">
+          <div class="form-group">
+            <label for="admin-login-role"><i class="fa-solid fa-users-gear"></i> Select Portal Role:</label>
+            <select id="admin-login-role" required onchange="adminPortal.onLoginRoleChange(this.value)">
+              <option value="admin" selected>Administrator (Principal & HOD Command Center)</option>
+              <option value="student">Student Portal (MCA, MBA, BCA, BBA)</option>
+              <option value="faculty">Faculty Desk (Professors & Lecturers)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="admin-login-username" id="admin-login-username-label"><i class="fa-solid fa-shield-halved"></i> Administrator Officer ID:</label>
+            <input type="text" id="admin-login-username" value="admin@campusez.in" placeholder="Enter Admin email or ID" required>
+          </div>
+
+          <div class="form-group">
+            <label for="admin-login-password"><i class="fa-solid fa-key"></i> Password:</label>
+            <div class="password-input-wrapper">
+              <input type="password" id="admin-login-password" value="admin@2026" placeholder="Enter password" required>
+              <button type="button" class="btn-eye-toggle" onclick="adminPortal.togglePasswordVisibility('admin-login-password')">
+                <i class="fa-solid fa-eye" id="admin-login-password-eye"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="login-options-row">
+            <label>
+              <input type="checkbox" id="admin-login-remember" checked> Remember this device
+            </label>
+            <a href="#" onclick="adminPortal.showToast('IT Security', 'Executive password reset token dispatched to administrative phone.', 'info'); return false;">Forgot Password?</a>
+          </div>
+
+          <div class="modal-actions-row">
+            <button type="button" class="btn btn-outline" onclick="adminPortal.closeModals()">Cancel</button>
+            <button type="submit" class="btn btn-primary" style="flex: 1;">
+              <i class="fa-solid fa-right-to-bracket"></i> Authenticate & Login
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Formal Show-Cause / Escalation Notice to Faculty -->
+  <div class="modal-overlay" id="admin-showcause-modal">
+    <div class="modal-box" style="max-width: 600px;">
+      <div class="modal-top">
+        <div class="modal-title-wrap">
+          <div class="modal-icon" style="background: #ffe4e6; color: #e11d48;"><i class="fa-solid fa-gavel"></i></div>
+          <div>
+            <h3>Issue Institutional Inquiry Notice</h3>
+            <p>Formal administrative warning regarding >10 student complaints</p>
+          </div>
+        </div>
+        <button class="modal-close-x" onclick="adminPortal.closeModals()">&times;</button>
+      </div>
+
+      <div class="modal-form-content">
+        <div class="escalation-warning-banner critical" style="padding: 12px 16px; margin-bottom: 14px;">
+          <div style="display: flex; gap: 10px; align-items: center;">
+            <i class="fa-solid fa-triangle-exclamation text-red" style="font-size: 20px;"></i>
+            <span style="font-size: 13px; font-weight: 700; color: #9f1239;">Warning Threshold Breached: 11 Active Student Grievances Logged</span>
+          </div>
+        </div>
+
+        <form onsubmit="adminPortal.handleDispatchShowCause(event)">
+          <div class="form-group" style="margin-bottom: 14px;">
+            <label style="font-weight: 700; margin-bottom: 6px; display: block;"><i class="fa-solid fa-user-tie"></i> Recipient Faculty Professor:</label>
+            <input type="text" id="showcause-faculty-name" value="Prof. Dr. S. K. Mohanty (Associate Professor, MCA)" readonly style="width: 100%; padding: 10px 14px; background: var(--bg-subtle); border-radius: var(--radius-sm); border: 1px solid var(--border-light); font-size: 13.5px; font-weight: 600;">
+          </div>
+
+          <div class="form-group" style="margin-bottom: 14px;">
+            <label for="showcause-ref" style="font-weight: 700; margin-bottom: 6px; display: block;"><i class="fa-solid fa-hashtag"></i> Institutional Notice Reference #:</label>
+            <input type="text" id="showcause-ref" value="RIMS/PRIN/2026/ESC-11" readonly style="width: 100%; padding: 10px 14px; background: var(--bg-subtle); border-radius: var(--radius-sm); border: 1px solid var(--border-light); font-size: 13.5px;">
+          </div>
+
+          <div class="form-group" style="margin-bottom: 14px;">
+            <label for="showcause-subject" style="font-weight: 700; margin-bottom: 6px; display: block;"><i class="fa-solid fa-heading"></i> Notice Subject:</label>
+            <input type="text" id="showcause-subject" value="URGENT: Regulatory Warning - Student Complaints Count Exceeded Threshold of 10" required style="width: 100%; padding: 10px 14px; border-radius: var(--radius-sm); border: 1px solid var(--border-light); font-size: 14px;">
+          </div>
+
+          <div class="form-group" style="margin-bottom: 14px;">
+            <label for="showcause-content" style="font-weight: 700; margin-bottom: 6px; display: block;"><i class="fa-solid fa-file-lines"></i> Executive Directive & Required Action:</label>
+            <textarea id="showcause-content" rows="4" required style="width: 100%; padding: 10px 14px; border-radius: var(--radius-sm); border: 1px solid var(--border-light); font-size: 14px; resize: vertical;">This official circular serves as a formal institutional notice under RIMS Academic Oversight. Over 10 student complaints have been registered regarding syllabus coverage pace, Lab 01 practical latency, and assignment grading. You are hereby directed to submit a written remedial plan within 48 hours and attend the Principal & HOD reconciliation session on Friday at 04:00 PM.</textarea>
+          </div>
+
+          <div class="modal-actions-row">
+            <button type="button" class="btn btn-outline" onclick="adminPortal.closeModals()">Cancel</button>
+            <button type="submit" class="btn btn-primary" style="flex: 1; background: #e11d48; border-color: #e11d48;">
+              <i class="fa-solid fa-paper-plane"></i> Dispatch Formal Warning Notice
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-wrapper" id="toast-wrapper"></div>
+
+  <!-- Sleek Admin Mobile Bottom Quick Navigation Dock (For Mobile Phones < 768px) -->
+  <nav class="mobile-bottom-nav" id="admin-mobile-bottom-nav" aria-label="Admin Mobile Navigation">
+    <button class="bottom-nav-item active" data-bottom-section="admin-section-overview" onclick="adminPortal.showSection('admin-section-overview')" aria-label="Executive Overview">
+      <i class="fa-solid fa-chart-pie"></i>
+      <span>Overview</span>
+    </button>
+    <button class="bottom-nav-item" data-bottom-section="admin-section-timetable" onclick="adminPortal.showSection('admin-section-timetable')" aria-label="Timetable Control">
+      <i class="fa-solid fa-calendar-days"></i>
+      <span>Timetable</span>
+    </button>
+    <button class="bottom-nav-item" data-bottom-section="admin-section-broadcast" onclick="adminPortal.showSection('admin-section-broadcast')" aria-label="SMS Broadcast">
+      <i class="fa-solid fa-bullhorn"></i>
+      <span>Broadcast</span>
+    </button>
+    <button class="bottom-nav-item" data-bottom-section="admin-section-complaints" onclick="adminPortal.showSection('admin-section-complaints')" aria-label="Grievances & Escalations">
+      <i class="fa-solid fa-triangle-exclamation"></i>
+      <span>Grievances</span>
+    </button>
+    <button class="bottom-nav-item" data-bottom-section="admin-section-profile" onclick="adminPortal.showSection('admin-section-profile')" aria-label="Admin Profile">
+      <i class="fa-solid fa-id-card-clip"></i>
+      <span>Profile</span>
+    </button>
+
+  </nav>
+
+  <!-- Dedicated Admin Logic Script -->
+  <script src="admin.js"></script>
+</body>
+</html>
